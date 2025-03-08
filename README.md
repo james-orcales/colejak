@@ -11,17 +11,17 @@ ANSI keyboard layout to maximize actions per minute.
 - Number Layer
 
 ![Layout preview](
-https://github.com/amesaine/colejak/blob/main/assets/colejak.png)
+https://github.com/james-orcales/colejak/blob/main/assets/colejak.png)
 
 ### Finger Placements
 
 ![Layout finger placements](
-https://github.com/amesaine/colejak/blob/main/assets/colejak-finger-placement.png)
+https://github.com/james-orcales/colejak/blob/main/assets/colejak-finger-placement.png)
 
 ### Dead Key Mappings
 
 ![Layout dead key mappings](
-https://github.com/amesaine/colejak/blob/main/assets/colejak-xcompose.png)
+https://github.com/james-orcales/colejak/blob/main/assets/colejak-xcompose.png)
 
 Linux
 -----
@@ -33,7 +33,7 @@ will be saved as *evdev.xml.bak*
 ### Copy
 
 ```
-git clone --filter=blob:none --depth=1 https://github.com/amesaine/colejak
+git clone --filter=blob:none --depth=1 https://github.com/james-orcales/colejak
 cd colejak
 mkdir --parents $HOME/.config/xkb/rules
 mkdir --parents $HOME/.config/xkb/symbols
@@ -45,7 +45,7 @@ cp --suffix=.bak .XCompose $HOME/.XCompose
 ### Symbolic Link
 
 ```
-git clone https://github.com/amesaine/colejak
+git clone https://github.com/james-orcales/colejak
 cd colejak
 mkdir --parents $HOME/.config/xkb
 ln --symbolic --suffix=.bak $(realpath rules) $HOME/.config/xkb/rules
@@ -121,7 +121,7 @@ override("v", "<BS>", "x", "Remap x to Backspace")
 
 ### My Neovim Config
 
-https://github.com/amesaine/init.lua
+https://github.com/james-orcales/init.lua
 
 </details>
 
@@ -330,6 +330,6 @@ Acknowledgement
 This instead extends the default `symbols/us(basic)` layout which some may find useful.
 
 [keyboard-layout-editor]: http://www.keyboard-layout-editor.com/
-[assets]: https://github.com/amesaine/dotfiles/tree/master/.config/xkb/assets
+[assets]: https://github.com/james-orcales/dotfiles/tree/master/.config/xkb/assets
 [keyboard-layout-analyzer]: https://stevep99.github.io/keyboard-layout-analyzer/#/main
-[kcx-qwerty]: https://github.com/amesaine/kcx-qwerty
+[kcx-qwerty]: https://github.com/james-orcales/kcx-qwerty

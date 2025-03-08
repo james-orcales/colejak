@@ -8,7 +8,7 @@ default partial alphanumeric_keys modifier_keys
 xkb_symbols "default" {
 
     name[Group1]= "Colejak";
-    
+
     // Things like type[Group1], symbols[Group1] are for namespacing the keys. 
     // This prevents situations where you change
     // keyboard layouts temporarily then when you switch back, some keys are
@@ -19,90 +19,210 @@ xkb_symbols "default" {
     // Globally sets all keys
     key.type[Group1] = "EIGHT_LEVEL";
 
-    // cant use NoSymbol to noop original Esc
-    key <ESC> { [ Print ] };
-
-    key <LCTL> { [ NoSymbol ] };
-    key <TLDE> {	[ NoSymbol  ] };
-    key <AE01> {	[ NoSymbol  ] };
-    // setting the type prevents situations where the shift layer behavior
-    // of the original key is retained.
-    key <AE02> {	type[Group1] = "ONE_LEVEL", [ Home ]	};
-    key <AE03> {	type[Group1] = "ONE_LEVEL", [ Return ]	};
-    key <AE04> {	type[Group1] = "ONE_LEVEL", [ End]	};
-    key <AE05> {	type[Group1] = "ONE_LEVEL", [ Delete ]	};  
-    key <AE06> {	[ NoSymbol ]	};
-    key <AE07> {	[ NoSymbol ]	};
-    key <AE08> {	type[Group1] = "ONE_LEVEL", [ Left ]	};
-    key <AE09> {	type[Group1] = "ONE_LEVEL", [ Down ]	};
-    key <AE10> {	type[Group1] = "ONE_LEVEL", [ Up ]	};
-    key <AE11> {	type[Group1] = "ONE_LEVEL", [ Right ]	};
-    key <AE12> {	[     minus,	underscore	]	};
-    key <BKSP> {	[     equal,	plus		]	};
-
 
     // Level3 modifier mappings get overidden by some apps
     include "level5(modifier_mapping)"
 
+    key <LCTL> { [ NoSymbol ] };
+
+    // setting the type prevents situations where the shift layer behavior
+    // of the original key is retained.
+    key <TLDE> {	type[Group1] = "ONE_LEVEL", [ Escape ] };
+    key <AE01> {	type[Group1] = "ONE_LEVEL", [ NoSymbol ] };
+    key <AE02> {	type[Group1] = "ONE_LEVEL", [ NoSymbol ] };
+    key <AE03> {	type[Group1] = "ONE_LEVEL", [ Home, Home, numbersign ] };
+    key <AE04> {	type[Group1] = "EIGHT_LEVEL", [ Return, Return, minus ] };
+    key <AE05> {	type[Group1] = "EIGHT_LEVEL", [ End, End, asciicircum ] };
+    key <AE06> {	type[Group1] = "ONE_LEVEL", [ Delete ]	};
+    key <AE07> {	type[Group1] = "ONE_LEVEL", [ NoSymbol ] };
+    key <AE08> {	type[Group1] = "ONE_LEVEL", [ Left ]	};
+    key <AE09> {	type[Group1] = "EIGHT_LEVEL", [ Down, Down, grave ]	};
+    key <AE10> {	type[Group1] = "EIGHT_LEVEL", [ Up, Up, ampersand ]	};
+    key <AE11> {	type[Group1] = "ONE_LEVEL", [ Right ]	};
+    key <AE12> {	type[Group1] = "ONE_LEVEL", [ Left ] };
+
+
     // Map numbers on layer 6 as well (Shift+Lvl5_Shift)
     // to make them work with keybinds such as `Mod4+Mod5+Number`
-    key <AD01> {	[	  q,	Q       ]   };
-    key <AD02> {	[	  w,	W ]	};
-    key <AD03> {	[	  f,	F ]	};
-    key <AD04> {	[	  p,	P ]	};
-    key <AD05> {	[	  b,	B ]	};
-    key <AD06> {	[ NoSymbol ]	};
-    key <AD07> {	[	  k,	K, NoSymbol, NoSymbol, NoSymbol, NoSymbol ]	};
-    key <AD08> {	[	  l,	L, NoSymbol, NoSymbol, 8, 8       ]	};
-    key <AD09> {	[	  u,	U, NoSymbol, NoSymbol, 7, 7		]	};
-    key <AD10> {	[	  y,	Y, NoSymbol, NoSymbol, 6, 6		] 	};
-    key <AD11> {	[	  j,	J, NoSymbol, NoSymbol, 5, 5		] 	};
-    key <AD12> {	[ Escape ]	};
-    key <BKSL> { [ bracketright, greater ]};
-
-    key <AC01> {	[	  a,	A ] };
-    key <AC02> {	[	  r,	R ]	};
-    key <AC03> {	[	  s,	S ]	};
-    key <AC04> {	[	  t,	T ]	};
-    key <AC05> {	[	  g,    G ]	};
-    key <AC06> {    [ NoSymbol ] };
-    key <AC07> {	[	  h,	H ]	};
-    key <AC08> {	[	  n,	N, NoSymbol, NoSymbol, 1, 1]	};
-    key <AC09> {	[	  e,	E, NoSymbol, NoSymbol, 2, 2]	};
-    key <AC10> {	[	  i,	I, NoSymbol, NoSymbol, 3, 3]	};
-    key <AC11> {	[	  o,	O, NoSymbol, NoSymbol, 4, 4]	};
-    key <RTRN> { 
-        type[Group1] = "ONE_LEVEL", 
-        symbols[Group1] = [ Shift_R ],
-        actions[Group1] = [ SetMods(modifiers=Shift) ] // for Lock behavior, use LockMods
-    };
-
-    key <AB01> {	[	  z,	Z ]	};
-    key <AB02> {	[	  x,	X ]   };
-    key <AB03> {	[	  v,	V		]	};
-    key <AB04> {    [     c,    C, NoSymbol, NoSymbol, 9,	9	 ] };
-    key <AB05> {	[	  d,    D ]	};
-    key <AB06> {	[     m,    M ]	};
-    key <AB07> {	[	  space,    NoSymbol, NoSymbol, NoSymbol, 0, 0 ] };
-    key <AB08> { type[Group1]="ONE_LEVEL", [     BackSpace ]	};
-    key <AB09> { type[Group1]="TWO_LEVEL",  [ dead_tilde, question ]	};
-    key <AB10> { type[Group1]="TWO_LEVEL", [ dead_grave, slash ] };
-    key <RTSH> { type[Group1] = "ONE_LEVEL", [ Super_R ] };
-
-    key <SPCE> { 
-        type[Group1]="ONE_LEVEL",
-        symbols[Group1] = [ Control_L ],
-        actions[Group1] = [ SetMods(modifiers=Control) ]
-    };
+    key <AD01> { [ q, Q, semicolon,      NoSymbol, NoSymbol, NoSymbol ] };
+    key <AD02> { [ w, W, apostrophe, NoSymbol, NoSymbol, NoSymbol ] };
+    key <AD03> { [ f, F, equal,      NoSymbol, 9,        NoSymbol ] };
+    key <AD04> { [ p, P, asterisk,   NoSymbol, NoSymbol, NoSymbol ] };
+    key <AD05> { [ g, G, at,         NoSymbol, NoSymbol, NoSymbol ] };
+    key <AD06> { [ BackSpace, Escape, bar,   NoSymbol, NoSymbol, NoSymbol ] };
+    key <AD07> {	[ NoSymbol ]	};
+    key <AD08> { [ l, L, quotedbl,  NoSymbol, NoSymbol, NoSymbol ] };
+    key <AD09>  { [ u, U, colon,     NoSymbol, NoSymbol, NoSymbol ] };
+    key <AD10>  { [ y, Y, exclam,    NoSymbol, NoSymbol, NoSymbol ] };
+    key <AD11>  { [ j, J, plus,      NoSymbol, NoSymbol, NoSymbol ] };
+    key <AD12> {	type[Group1] = "ONE_LEVEL", [  Super_R	]	};
 
     key <CAPS> {
         type[Group1] = "ONE_LEVEL",
-        symbols[Group1] = [ Shift_L ],
-        actions[Group1] = [ SetMods(modifiers=Shift) ]
+        symbols[Group1] = [ Control_L ],
+        actions[Group1] = [ SetMods(modifiers=Control) ]
+    };
+    key <AC01> { [ a,    A, less,        NoSymbol, 4, NoSymbol ] };
+    key <AC02> { [ r,    R, bracketleft, NoSymbol, 3, NoSymbol ] };
+    key <AC03> { [ s,    S, parenleft,   NoSymbol, 2, NoSymbol ] };
+    key <AC04> { [ t,    T, braceleft,   NoSymbol, 1, NoSymbol ] };
+    key <AC05> { [ d,    D, percent,         NoSymbol, NoSymbol, NoSymbol ] };
+    key <AC06> { type[Group1] = "ONE_LEVEL",    [ NoSymbol ]    };
+    key <AC07> { [ h, H, backslash,    NoSymbol, NoSymbol, NoSymbol ] };
+    key <AC08> { [ n, N, braceright, NoSymbol, 8,        NoSymbol ] };
+    key <AC09>  { [ e, E, parenright,   NoSymbol, 7,        NoSymbol ] };
+    key <AC10>  { [ i, I, bracketright,   NoSymbol, 6,        NoSymbol ] };
+    key <AC11>  { [ o, O, greater,      NoSymbol, 5,        NoSymbol ] };
+    key <RTRN> { 
+        type[Group1] = "ONE_LEVEL", 
+        symbols[Group1] = [ Control_R ],
+        actions[Group1] = [ SetMods(modifiers=Control) ] // for Lock behavior, use LockMods
     };
 
-    key <LFSH> {
-        type[Group1] = "ONE_LEVEL",
+    key <LFSH> { type[Group1] = "TWO_LEVEL", [    z,    Z ] };
+    key <AB01> { type[Group1] = "TWO_LEVEL", [	  x,	X ] };
+    key <AB02> { type[Group1] = "TWO_LEVEL", [    c,    C ] };
+    key <AB03> { type[Group1] = "TWO_LEVEL", [	  v,	V ] };
+    key <AB04> { 
+        type[Group1]="ONE_LEVEL",
         symbols[Group1] = [ ISO_Level5_Shift ]
     };
+    key <AB05> { [	  b,    B, NoSymbol, NoSymbol, NoSymbol, NoSymbol ] };
+    key <AB06> { type[Group1] = "TWO_LEVEL", [ k, K ] };
+    key <AB07> { [ space, NoSymbol, underscore, NoSymbol,  0, NoSymbol ] };
+    key <AB08> { type[Group1] = "TWO_LEVEL", [ m, M ] };
+    key <AB09> { [ period, greater, asciitilde, NoSymbol, NoSymbol, NoSymbol  ]	};
+    key <AB10> { [ comma, less, dollar, NoSymbol, NoSymbol, NoSymbol  ]	};
+    key <RTSH> { [ slash, question, question ]	};
+
+    key <SPCE> { 
+        type[Group1]="ONE_LEVEL",
+        symbols[Group1] = [ ISO_Level3_Shift ]
+    };
 };
+
+
+
+// ====================================================================================================
+// ====================================================================================================
+// ====================================================================================================
+// ====================================================================================================
+
+default partial alphanumeric_keys modifier_keys
+xkb_symbols "numpad" {
+
+    include "level5(modifier_mapping)"
+    name[Group1]= "Colejak with NumPad";
+    key.type[Group1] = "EIGHT_LEVEL";
+    key <LCTL> { [ NoSymbol ] };
+    
+    key <TLDE> {	type[Group1] = "ONE_LEVEL", [ Escape ] };
+    key <AE01> {	type[Group1] = "ONE_LEVEL", [ NoSymbol ] };
+    key <AE02> {	type[Group1] = "ONE_LEVEL", [ NoSymbol ] };
+    key <AE03> {	[ Home, Home, semicolon ] };
+    key <AE04> {	type[Group1] = "EIGHT_LEVEL", [ Return, Return, minus ] };
+    key <AE05> {	type[Group1] = "EIGHT_LEVEL", [ End, End, asciicircum ] };
+    key <AE06> {	type[Group1] = "ONE_LEVEL", [ Delete ]	};
+    key <AE07> {	type[Group1] = "ONE_LEVEL", [ NoSymbol ] };
+    key <AE09> {	type[Group1] = "ONE_LEVEL", [ NoSymbol ]	};
+    key <AE08> {	type[Group1] = "ONE_LEVEL", [ NoSymbol ]	};
+    key <AE10> {	type[Group1] = "ONE_LEVEL", [ NoSymbol ]	};
+    key <AE11> {	type[Group1] = "ONE_LEVEL", [ NoSymbol ]	};
+    key <AE12> {	type[Group1] = "ONE_LEVEL", [ Left ]	};
+    // Cant set <DELE> to NoSymbol so just set it to down to compensate for typos
+    key <DELE> {	type[Group1] = "ONE_LEVEL", [ Down ]	};
+    key <BKSP> {	type[Group1] = "EIGHT_LEVEL", [ Down, Down, grave ]	};
+    key <NMLK> {	type[Group1] = "EIGHT_LEVEL", [ Up, Up, ampersand ]	};
+    key <KPDV> {	[ Right, Right, backslash]	};
+    key <KPMU> {	type[Group1] = "ONE_LEVEL", [ NoSymbol ]	};
+    key <KPSU> {	type[Group1] = "ONE_LEVEL", [ NoSymbol ]	};
+
+
+    // Map numbers on layer 6 as well (Shift+Lvl5_Shift)
+    // to make them work with keybinds such as `Mod4+Mod5+Number`
+    key <AD01> { [ q, Q, numbersign,      NoSymbol, NoSymbol, NoSymbol ] };
+    key <AD02> { [ w, W, apostrophe, NoSymbol, NoSymbol, NoSymbol ] };
+    key <AD03> { [ f, F, equal,      NoSymbol, 9,        NoSymbol ] };
+    key <AD04> { [ p, P, asterisk,   NoSymbol, NoSymbol, NoSymbol ] };
+    key <AD05> { [ g, G, dollar,         NoSymbol, NoSymbol, NoSymbol ] };
+    key <AD06> {	[ NoSymbol ]	};
+    key <AD07> {	[ NoSymbol ]	};
+    key <AD08> {	[ NoSymbol ]	};
+    key <AD09> {	[ NoSymbol ]	};
+    key <AD10> {	[ NoSymbol ] 	};
+    key <AD11> {	[ NoSymbol ] 	};
+    key <AD12> { [ BackSpace, Escape, bar,   NoSymbol, NoSymbol, NoSymbol ] };
+    key <BKSL> { [ l, L, quotedbl,  NoSymbol, NoSymbol, NoSymbol ] };
+    key <KP7>  { [ u, U, colon,     NoSymbol, NoSymbol, NoSymbol ] };
+    key <KP8>  { [ y, Y, exclam,    NoSymbol, NoSymbol, NoSymbol ] };
+    key <KP9>  { [ j, J, plus,      NoSymbol, NoSymbol, NoSymbol ] };
+
+    key <CAPS> {
+        type[Group1] = "ONE_LEVEL",
+        symbols[Group1] = [ Control_L ],
+        actions[Group1] = [ SetMods(modifiers=Control) ]
+    };
+    key <AC01> { [ a,    A, less,        NoSymbol, 4, NoSymbol ] };
+    key <AC02> { [ r,    R, bracketleft, NoSymbol, 3, NoSymbol ] };
+    key <AC03> { [ s,    S, parenleft,   NoSymbol, 2, NoSymbol ] };
+    key <AC04> { [ t,    T, braceleft,   NoSymbol, 1, NoSymbol ] };
+    key <AC05> { [ d,    D, percent,         NoSymbol, NoSymbol, NoSymbol ] };
+    key <AC06> { type[Group1] = "ONE_LEVEL",    [ NoSymbol ]    };
+    key <AC07> { type[Group1] = "ONE_LEVEL",	[ NoSymbol ]	};
+    key <AC08> { type[Group1] = "ONE_LEVEL",	[ NoSymbol ]	};
+    key <AC09> { type[Group1] = "ONE_LEVEL",	[ NoSymbol ]	};
+    key <AC10> { type[Group1] = "ONE_LEVEL",	[ NoSymbol ]	};
+    key <AC11> { [ h, H, at,    NoSymbol, NoSymbol, NoSymbol ] };
+    key <RTRN> { [ n, N, braceright, NoSymbol, 8,        NoSymbol ] };
+    key <KP4>  { [ e, E, parenright,   NoSymbol, 7,        NoSymbol ] };
+    key <KP5>  { [ i, I, bracketright,   NoSymbol, 6,        NoSymbol ] };
+    key <KP6>  { [ o, O, greater,      NoSymbol, 5,        NoSymbol ] };
+    key <KPAD> { 
+        type[Group1] = "ONE_LEVEL", 
+        symbols[Group1] = [ Control_R ],
+        actions[Group1] = [ SetMods(modifiers=Control) ] // for Lock behavior, use LockMods
+    };
+
+    key <LFSH> { type[Group1] = "TWO_LEVEL", [    z,    Z ] };
+    key <AB01> { type[Group1] = "TWO_LEVEL", [	  x,	X ] };
+    key <AB02> { type[Group1] = "TWO_LEVEL", [    c,    C ] };
+    key <AB03> { type[Group1] = "TWO_LEVEL", [	  v,	V ] };
+    key <AB04> { 
+        type[Group1]="ONE_LEVEL",
+        symbols[Group1] = [ ISO_Level5_Shift ]
+    };
+    key <AB05> { [	  b,    B, NoSymbol, NoSymbol, NoSymbol, NoSymbol ] };
+    key <AB06> { type[Group1] = "ONE_LEVEL", [ NoSymbol ] };
+    key <AB07> { type[Group1] = "ONE_LEVEL", [ NoSymbol ] };
+    key <AB08> { type[Group1] = "ONE_LEVEL", [ NoSymbol ] };
+    key <AB09> { type[Group1] = "ONE_LEVEL", [ NoSymbol ] };
+    key <AB10> { type[Group1] = "TWO_LEVEL", [ k, K ] };
+    key <RTSH> { [ space, space, NoSymbol, NoSymbol,  0, NoSymbol ] };
+    key   <UP> { type[Group1] = "TWO_LEVEL", [ m, M] };
+    // intentional; so you can just get the symbol with either the symbol layer or shift layer
+    key  <KP1> {	[ period, asciitilde, asciitilde, NoSymbol, NoSymbol, NoSymbol  ]	};
+    key  <KP2> { type[Group1] = "ONE_LEVEL", [ comma ]	};
+    key  <KP3> { [ slash, question, question ] };
+    key <KPEN> { type[Group1] = "ONE_LEVEL", [  Super_R	]	};
+    key <ENTR> { type[Group1] = "ONE_LEVEL", [  NoSymbol ] };
+
+
+    key <SPCE> { 
+        type[Group1]="ONE_LEVEL",
+        symbols[Group1] = [ ISO_Level3_Shift ]
+    };
+    
+    // Doing Shift_R + Ctrl is a noop when doing unformatted copy pasting
+    // so we use Shift_L here instead.
+    key <RCTL> {
+        symbols[Group1] = [ Shift_L, Shift_L, underscore ],
+        actions[Group1] = [ SetMods(modifiers=Shift) ]
+    };
+    key <DOWN> { type[Group1] = "ONE_LEVEL", [ NoSymbol ]};
+    key <RGHT> { type[Group1] = "ONE_LEVEL", [ NoSymbol ]};
+
+    key  <KP0> {	type[Group1] = "ONE_LEVEL", [ NoSymbol ]	};
+    key <KPDL> {	type[Group1] = "ONE_LEVEL", [ NoSymbol ]	};
+    key <KPPT> {	type[Group1] = "ONE_LEVEL", [ NoSymbol ]	};
+};
+

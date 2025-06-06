@@ -1,56 +1,52 @@
-Colejak 
-=======
+- [Colejak ](#colejak)
+   * [Installation](#installation)
+      + [Linux](#linux)
+      + [Windows](#windows)
+      + [MacOS](#macos)
+   * [Application Remaps (Optional)](#application-remaps-optional)
+      + [Neovim](#neovim)
+      + [Alacritty](#alacritty)
+      + [Vimium](#vimium)
+      + [Lesskey](#lesskey)
+   * [Design](#design)
+      + [Symbol Layer](#symbol-layer)
+      + [Number Layer](#number-layer)
+      + [Navigation Row](#navigation-row)
+   * [Recommended Practice Routine](#recommended-practice-routine)
+   * [FAQ](#faq)
+      + [How do I take full advantage of this layout?](#how-do-i-take-full-advantage-of-this-layout)
+      + [Does this apply to TTY as well?](#does-this-apply-to-tty-as-well)
+      + [What are dead keys and Compose keys?](#what-are-dead-keys-and-compose-keys)
+      + [Creating a New Layout From Scratch](#creating-a-new-layout-from-scratch)
+      + [Thumb Typing Experiment](#thumb-typing-experiment)
+      + [Colemak vs Colemak-DH](#colemak-vs-colemak-dh)
+   * [Motivation](#motivation)
+   * [Resources](#resources)
+      + [Keyboard Layout Pictures](#keyboard-layout-pictures)
+      + [KCX Qwerty](#kcx-qwerty)
 
-ANSI keyboard layout to maximize actions per minute.
+# Colejak 
 
-- Colemak-DH foundation
-- Improved for thumb typing
-- Better-placed modifier keys
-- Navigation row
-- Dead keys for symbols
-- Number Layer
+Colemak-DH variant optimized for programming and keyboard-centric navigation. Compatible with ANSI, Lily58, and
+ZSA-Voyager. Colejak repositions symbols and numbers to accessible layers near the home row. This frees the top row for
+navigation and editing keys, placing arrows, Home, End, and Delete closer to the home position for efficiency across
+applications.
 
-![Layout preview](
-https://github.com/james-orcales/colejak/blob/main/assets/colejak.png)
+## Installation
 
-### Finger Placements
-
-![Layout finger placements](
-https://github.com/james-orcales/colejak/blob/main/assets/colejak-finger-placement.png)
-
-### Dead Key Mappings
-
-![Layout dead key mappings](
-https://github.com/james-orcales/colejak/blob/main/assets/colejak-xcompose.png)
-
-Linux
------
+### Linux
 
 > [!NOTE]
 > These will overwrite existing destination files. Your original files such as *evdev.xml*
 will be saved as *evdev.xml.bak*
 
-### Copy
-
 ```
 git clone --filter=blob:none --depth=1 https://github.com/james-orcales/colejak
 cd colejak
-mkdir --parents $HOME/.config/xkb/rules
-mkdir --parents $HOME/.config/xkb/symbols
-cp --suffix=.bak rules/* $HOME/.config/xkb/rules/
-cp --suffix=.bak symbols/* $HOME/.config/xkb/symbols/
-cp --suffix=.bak .XCompose $HOME/.XCompose
-```
-
-### Symbolic Link
-
-```
-git clone https://github.com/james-orcales/colejak
-cd colejak
-mkdir --parents $HOME/.config/xkb
-ln --symbolic --suffix=.bak $(realpath rules) $HOME/.config/xkb/rules
-ln --symbolic --suffix=.bak $(realpath symbols) $HOME/.config/xkb/symbols
-ln --symbolic --suffix=.bak $(realpath .XCompose) $HOME/.XCompose
+mkdir --parents            $HOME /.config/xkb/rules
+mkdir --parents            $HOME /.config/xkb/symbols
+cp --suffix=.bak rules/*   $HOME /.config/xkb/rules/
+cp --suffix=.bak symbols/* $HOME /.config/xkb/symbols/
 ```
 
 <details>
@@ -72,13 +68,20 @@ Search for *Colejak* in `gnome-control-center > Keyboard > Input Sources`
 
 </details>
 
-Application Remaps (Optional)
-------------------------------
+### Windows
+
+TODO
+
+### MacOS
+
+TODO
+
+## Application Remaps (Optional)
 
 <details>
 <summary>Neovim</summary>
 
-### Remaps
+### Neovim
 
 ```lua
 local override = function(modes, new, default, desc, custom_behavior)
@@ -90,12 +93,6 @@ local override = function(modes, new, default, desc, custom_behavior)
     vim.keymap.set(modes, default, "<nop>")
     vim.keymap.set(modes, new, behavior, { desc = desc })
 end
-
-override({ "n", "v", "o" }, "<C-Y>", "<C-R>", "Redo")
-vim.keymap.set("n", "<C-S>", "<CMD>w<CR>", { desc = "Save File" })
-vim.keymap.set("i", "<C-S>", "<ESC><CMD>w<CR>", { desc = "Save File" })
-vim.keymap.set("n", "<C-Q>", "<CMD>q<CR>", { desc = "Quit Pane" })
-vim.keymap.set("n", "<C-S-Q>", "<CMD>qa!<CR>", { desc = "Force Quit Vim" })
 
 override({ "n", "v", "o" }, "<C-Left>", "b", "Jump previous word")
 override({ "n", "v", "o" }, "<S-Left>", "B", "Jump previous whitespace")
@@ -119,17 +116,74 @@ override("n", "<BS>", "x", "Kill char before cursor", "<Left>x")
 override("v", "<BS>", "x", "Remap x to Backspace")
 ```
 
-### My Neovim Config
-
 https://github.com/james-orcales/init.lua
 
 </details>
 
+<details>
+<summary>Alacritty</summary>
+
+### Alacritty
+
+```toml
+[keyboard]
+bindings = [
+    { key = "Enter",    mods = "Shift",           chars = "\u001B[13;2u"      },
+    { key = "Enter",    mods = "Control",         chars = "\u001B[13;5u"      },
+    { key = "Delete",                             chars = "\u001B[3~"         },
+    { key = "Delete",   mods = "Shift",           chars = "\u001B[3;2u"       },
+
+    { key = "Home",     mode = "AppCursor",       chars = "\u001BOH"          },
+    { key = "Home",     mode = "~AppCursor",      chars = "\u001B[H"          },
+    { key = "End",      mode = "AppCursor",       chars = "\u001BOF"          },
+    { key = "End",      mode = "~AppCursor",      chars = "\u001B[F"          },
+
+    { key = "Left",     mods = "Shift",           chars = "\u001B[1;2D"       },
+    { key = "Left",     mods = "Control",         chars = "\u001B[1;5D"       },
+    { key = "Left",     mods = "Alt",             chars = "\u001B[1;3D"       },
+    { key = "Left",     mode = "~AppCursor",      chars = "\u001B[D"          },
+    { key = "Left",     mode = "AppCursor",       chars = "\u001BOD"          },
+
+    { key = "Right",    mods = "Shift",           chars = "\u001B[1;2C"       },
+    { key = "Right",    mods = "Control",         chars = "\u001B[1;5C"       },
+    { key = "Right",    mods = "Alt",             chars = "\u001B[1;3C"       },
+    { key = "Right",    mode = "~AppCursor",      chars = "\u001B[C"          },
+    { key = "Right",    mode = "AppCursor",       chars = "\u001BOC"          },
+
+    { key = "Up",       mods = "Shift",           chars = "\u001B[1;2A"       },
+    { key = "Up",       mods = "Control",         chars = "\u001B[1;5A"       },
+    { key = "Up",       mods = "Alt",             chars = "\u001B[1;3A"       },
+    { key = "Up",       mode = "~AppCursor",      chars = "\u001B[A"          },
+    { key = "Up",       mode = "AppCursor",       chars = "\u001BOA"          },
+
+    { key = "Down",     mods = "Shift",           chars = "\u001B[1;2B"       },
+    { key = "Down",     mods = "Control",         chars = "\u001B[1;5B"       },
+    { key = "Down",     mods = "Alt",             chars = "\u001B[1;3B"       },
+    { key = "Down",     mode = "~AppCursor",      chars = "\u001B[B"          },
+    { key = "Down",     mode = "AppCursor",       chars = "\u001BOB"          },
+
+    { key = "Tab",      mods = "Shift",           chars = "\u001B[Z"          },
+    { key = "Back",     mods = "Alt",             chars = "\u001B\u007F"      },
+
+    { key = "RBracket", mods = "Shift",           chars = "\u0002n"           },
+    { key = "LBracket", mods = "Shift",           chars = "\u0002p"           },
+
+    { key = "V",        mods = "Control | Shift", action = "Paste"            },
+    { key = "C",        mods = "Control | Shift", action = "Copy"             },
+
+    { key = "Equals",   mods = "Control",         action = "IncreaseFontSize" },
+    { key = "Minus",    mods = "Control",         action = "DecreaseFontSize" },
+    { key = "Minus",    mods = "Control|Shift",   action = "ResetFontSize"    },
+]
+
+
+```
+</details>
 
 <details>
 <summary>Vimium</summary>
 
-### Remaps
+### Vimium
 
 ```
 unmapAll
@@ -161,16 +215,14 @@ map wt moveTabToNewWindow
 map ? showHelp
 ```
 
-### Characters used for hints
-
-```
-nplseriaocm
-```
+Characters used for hints: `nseriaoplfuwyqjdcxz`
 
 </details>
 
 <details>
 <summary>Lesskey (Man Pages)</summary>
+
+### Lesskey
 
 ```
 #command
@@ -183,44 +235,32 @@ h quit
 ```
 </details>
 
-Design
-------
+## Design
 
-### Using Dead Keys for All Symbols
+### Symbol Layer
 
-Cons:
+There's 32 symbols on the keyboard. I work with a lot of different languages so I use all of these symbols on a reqular
+basis. That's why it's important that I keep them all close to the homerow to not only maintain speed, but most
+importantly, maintain accuracy. My symbol layout is optimized for the languages that I commonly use, I encourage you to
+personalize this layer to fit your on workflow as well. These things affected my symbol layout the most:
 
-- Each period, comma, and whatever else common symbol that you use will all 
-take two keystrokes.
-- Any behavior involving modifier key + symbol will not work through the dead 
-key. 
-- This is hard/impossible to setup on Windows and MacOS.
-- If you need dead keys for international symbols, you'd be using the worse Compose key which
-takes three keystrokes total. Although we do have three dead key types (grave,
-tilde, acute) so hopefully you don't run out lol.
-- High learning curve
-- Some browsers don't respect .XCompose (Firefox LTS on Debian). It does work
-in Brave though.
-
-This is a tradeoff for:
-
-- Significant increase in accuracy
-- Fingers stay at/near homerow
-
-Things to take note of:
-
-- Vim keybinds and any application keybinds with symbols still work as long
-as it's the symbol alone. This means typing ":" in vim through dead keys
-still bring up the command line. In some websites however, this is finicky. 
-(Discussed later)
-
-Found inside `.XCompose`
+- Neovim
+- Odin
+- Golang
+- Bash
+- YAML (especially Github Actions)
 
 ### Number Layer
 
-`Modifier_key + number` such as `Ctrl + 1` won't work with this layer. A workaround
-would be to have a Colejak variant. A.k.a you switch layouts everytime you want to
-use to `Modifier_key + number` and switch back. 
+Same concept with the symbol layer here. You acces this layer by combining the Symbol Layer and Shift to get to Layer 4.
+You will notice however the sequence of the numbers `4321 8065` (`97` above `20` respectively). I tried to put the most
+common numbers in programming, based on common expressions and data types, on the strongest fingers while balancing an
+easy-to-memorize layout. If you want a hyperoptimized sequence, try this `7612 3045 (98)`. Again, I encourage you to
+personalize this layer based on your own usage patterns.
+
+`Modifier_key + number` such as `Ctrl + 1` won't work with this layer. A workaround would be to have a Colejak variant
+where the numbers are on the first layer. A.k.a you switch layouts everytime you want to use to `Modifier_key + number`
+and switch back. 
 
 > [!NOTE]
 > On Sway, you can add `Mod5` to your config. `Mod4 + 1` -> `Mod4 + Mod5 + 1`
@@ -229,9 +269,8 @@ Found inside `symbols/colejak`
 
 ### Navigation Row
 
-We've now essentially brought the number row to the home row. This unlocks
-a whole row for remapping. What better keys to map than to place navigation-related
-keys here. Pros:
+We've now essentially brought the number row to the home row. This unlocks a whole row for remapping. What better keys
+to map than to place navigation-related keys here. Pros:
 
 - Layout agnostic hjkl movemet + Home/End (no more getting confused with gg and G!).
 - Arrow keys enable vim motions in **ALL** applications and textboxes.
@@ -244,62 +283,78 @@ Especially within textboxes, here are available motions beyond hjkl:
 - Start/End of textbox - `Control+Home` / `Control+End`
 - Visual mode  - Hold shift while doing all the goodies above.
 
-FAQ
----
-
-### What are dead keys and Compose keys?
-
-Dead Keys and the Compose Key are special "combo keys" that allow you to type 
-a character by combining multiple key presses. Dead Keys are two-combo keys, 
-commonly used for international symbols and diacritical marks, and come in types 
-such as grave, tilde, and acute, which should not be confused with the standard 
-grave and tilde keys. When pressed followed by a letter, they produce a special 
-character, like `dead_tilde + n` outputting `ñ`. Unlike the Shift key, which modifies 
-the next key press only when held down simultaneously, Dead Keys modify the next 
-key press even after they've been released.
-
-### How do I take full advantage of this layout?
-
-- Use vim motions in your editor
-- Install vimium in your browser
-- Use a tiling window manager
-- Install warpd
-
-You'd reach for the mouse maybe 1-20 times a week. And if you're on a
-laptop, the trackpad is within thumb's reach. Guaranteed productivity
-gains.
-
-### Recommended Practice Routine
+## Recommended Practice Routine
 
 I did it in 3 weeks just typing my brains out,
 averaging 100 wpm after 50 hours of typing tests. Here's how:
 
-- Monkeytype English until 50 wpm average.
-- Keybr. Apply these settings: 
+1) Monkeytype English until 50 wpm average.
+2) Keybr. Apply these settings: 
     - 60 wpm target speed. 
     - Unlock next key only when the previous keys are also above the target speed. 
     - Beat all letters.
-- Monkeytype `English 5k` until 80 wpm average.
-- PR 132 wpm on `Monkeytype English`.
-- Diversify wordsets
+3) Monkeytype `English 5k` until 80 wpm average.
+4) PR 132 wpm on `Monkeytype English`.
+5) Diversify wordsets
     - Monkeytype `code rust` for numbers and symbols
     - Monkeytype `quotes`
     - Monkeytype `code javascript` for common programming words
+
+I recommend that you stop training once you can consistently hit 100 wpm. Personally, I always regress to this speed
+when I stop typing tests and focus on programming again.
+
+## FAQ
+
+### How do I take full advantage of this layout?
+
+- Use a PDE such as Neovim or Emacs.
+- Install vimium in your browser
+- Use a tiling window manager
 
 ### Does this apply to TTY as well?
 
 No. And I don't recommend doing anything this complicated to your TTY
 settings... ***here be dragons***
 
-Motivation
-----------
 
-I don't have money for a $400 ergonomic keyboard. Also, maximizing ergonomics
-within the constraint of an ANSI layout means that this is guaranteed to work and feel better
-on an ortholinear, split, or whatever keyboard as is.
+### What are dead keys and Compose keys?
 
-Resources
----------
+Dead Keys and the Compose Key are special "combo keys" that allow you to type a character by combining multiple key
+presses. Dead Keys are two-combo keys, commonly used for international symbols and diacritical marks, and come in types
+such as grave, tilde, and acute, which should not be confused with the standard grave and tilde keys. When pressed
+followed by a letter, they produce a special character, like `dead_tilde + n` outputting `ñ`. Unlike the Shift key,
+which modifies the next key press only when held down simultaneously, Dead Keys modify the next key press even after
+they've been released.
+
+I experimented with using Dead Keys before settling on my current symbol and number layer approach. In practice, they
+slowed down typing and, more importantly, added cognitive load compared to layered key mappings. Another drawback was
+the need to dedicate 1-2 keys for the dead key/compose triggers—an unacceptable trade-off when pursuing compatibility
+with a smaller keyboard like the ZSA Voyager.
+
+### Creating a New Layout From Scratch
+
+I spent a good 3 months of my life obsessing over creating a new keyboard layout from scratch. The goals were to make a
+Dvorak-Colemak baby by maximizing finger alternation and minimizing same-finger bigrams. I concluded that
+hyperoptimizing for typing is not worth it as one must also be concerned with keyboard shortcut ergnomics in which
+Colemak-DH is the best balance of these metrics.
+
+### Thumb Typing Experiment
+
+I've tried designing layouts that place letters on the thumbs, including using the thumbs to type the lower-center
+letters of the Colemak-DH layout. In my experience, this approach actually slows down typing. It only proves effective
+with the QWERTY layout, where I used this exact method to reach 152 wpm.
+
+### Colemak vs Colemak-DH
+
+The difference is marginal except for a specific use case. On Colemak, typing `pub` or `public` is objectively inferior
+to Colemak-DH because of the huge jump that the left index finger has to make between `p` and `b`.
+
+## Motivation
+
+I don't have money for a $400 ergonomic keyboard. Also, maximizing ergonomics within the constraint of an ANSI layout
+means that this is guaranteed to work and feel better on an ortholinear, split, or whatever keyboard as is.
+
+## Resources
 
 [XKB Configuration Files Documentation](https://www.charvolant.org/doug/xkb/html/node5.html#SECTION00054000000000000000)
 
@@ -321,15 +376,16 @@ Acknowledgement
 ---------------
 
 ### Keyboard Layout Pictures
-- Created with [keyboard-layout-editor.com][keyboard-layout-editor]. 
+- Created with [keyboard-layout-editor.com][keyboard-layout-editor]. [(GitHub)][keyboard-layout-editor-github]
 - JSON for all layouts are available in [assets][assets].
 
 ### KCX Qwerty
 
-- [ KCX Qwerty ][kcx-qwerty] is my old layout. Improved with modifier/special keys closer to the homerow.
-This instead extends the default `symbols/us(basic)` layout which some may find useful.
+- [ KCX Qwerty ][kcx-qwerty] is my old layout. Improved with modifier/special keys closer to the homerow. This instead
+  extends the default `symbols/us(basic)` layout which some may find useful.
 
 [keyboard-layout-editor]: http://www.keyboard-layout-editor.com/
+[keyboard-layout-editor-github]: https://github.com/ijprest/keyboard-layout-editor
 [assets]: https://github.com/james-orcales/dotfiles/tree/master/.config/xkb/assets
 [keyboard-layout-analyzer]: https://stevep99.github.io/keyboard-layout-analyzer/#/main
 [kcx-qwerty]: https://github.com/james-orcales/kcx-qwerty

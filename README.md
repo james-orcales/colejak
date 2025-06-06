@@ -32,6 +32,14 @@ ZSA-Voyager. Colejak repositions symbols and numbers to accessible layers near t
 navigation and editing keys, placing arrows, Home, End, and Delete closer to the home position for efficiency across
 applications.
 
+![ZSA Voyager](https://github.com/user-attachments/assets/aba9c2d7-a504-440b-9aa2-100a2462bf2a)
+
+![Lily58](https://github.com/user-attachments/assets/d4b09658-7cfb-4ace-9cb7-d27e2ea6e6b7)
+
+![ANSI](https://github.com/user-attachments/assets/b877417e-3e25-44c8-a2e8-203e04c417ab)
+
+
+
 ## Installation
 
 ### Linux

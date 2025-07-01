@@ -1,0 +1,64 @@
+(defcfg
+  process-unmapped-keys yes
+)
+
+
+(defsrc
+  esc  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab    q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps     a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft       z    x    c    v    b    n    m    ,    .    /    rsft
+          lalt           spc            ralt  comp
+)
+
+
+(deflayer colejak-ansi-base
+  esc  ✗     ✗     home  ret   end   del  lft   down  up    right ✗       ✗    ✗
+  tab    q     w     f     p     b     ✗     bspc  l     u     y     j     rmet    ✗
+  lctl     a     r     s     t     g     ✗     m     n     e     i     o     rctl
+  z          x     c     d     @.    v     k     spc   h     `     ,     /   
+           lalt                    @sym                    lsft       lrld
+)
+
+(deflayer colejak-ansi-symbols
+  esc  ✗     ✗     home  ret   end   del   ✗     lft   down  up    right ✗      ✗
+  tab    @at   '     =     -     @*    ✗     bspc  @:    @dq    @!    +     rmet    ✗
+  lctl     @<    [     @lp   @{    @|    ✗     @&    @}    @rp   ]     @>    rctl
+  ✗          ✗     ✗     @^    .     @%    @#    spc   @$    `     ,     /   
+           lalt                    @sym                    @num       lrld
+)
+
+(deflayer colejak-ansi-numbers
+  esc  ✗     ✗     home  ret   end   del   ✗     lft   down  up    right ✗      ✗
+  tab    q     w     9     p     b     ✗     bspc  l     7     y     j     rmet    ✗
+  lctl     4     3     2     1     g     ✗     m     8     0     6     5     rctl
+  z          x     c     d     @.    v     k     spc   h     `     ,     /   
+           lalt                    @sym                    @num       lrld
+)
+
+(defalias
+  sym (layer-while-held colejak-ansi-symbols)
+  num (layer-while-held colejak-ansi-numbers)
+  . (fork . - (lsft rsft))
+  ! (unicode "!")
+  # (unicode "#")
+  $ (unicode "$")
+  % (unicode "%")
+  & (unicode "&")
+  * (unicode "*")
+  : S-;
+  < S-,
+  > S-.
+  ? (unicode "?")
+  ^ (unicode "^")
+  _ (unicode "_")
+  at (unicode "@")
+  dq (unicode r#"""#)
+  lp S-9
+  rp S-0
+  { S-[
+  } S-]
+  ~ (unicode "~")
+  | (unicode "|")
+)
+

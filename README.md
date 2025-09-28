@@ -117,9 +117,9 @@ if ! test -d "$QMK_HOME"; then
         # Ideally, this should be pinned to a commit sha but recursive submodule cloning works best if everything is pointing at the branch tip
         # https://stackoverflow.com/questions/2144406/how-to-make-shallow-git-submodules
         git clone --depth=1 --recurse-submodules --shallow-submodules https://github.com/qmk/qmk_firmware "$QMK_HOME"
-        cd "$QMK_HOME"
+        pushd "$QMK_HOME"
         git remote rename origin upstream
-        cd -
+        popd
 fi
 
 if ! test -d "$QMK_HOME/keyboards/lily58/keymaps/colejak/"; then

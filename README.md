@@ -1,3 +1,6 @@
+> [!NOTE]
+> This repo was migrated over to my monorepo https://github.com/james-orcales/james-orcales
+
 - [Colejak ](#colejak)
    * [Software-Only Remap](#software-only-remap)
       + [Linux (XKB)](#linux-xkb)
